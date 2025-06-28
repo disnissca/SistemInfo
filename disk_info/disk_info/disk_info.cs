@@ -171,8 +171,10 @@ public class disk_info
         string model = ExtractField(output, @"Device Model:\s+(.*)") ?? "неизвестно";
         string serial = ExtractField(output, @"Serial Number:\s+(.*)") ?? "неизвестно";
         string wear = ExtractField(output, @"SSD_Life_Left.*?(\d+)\s*$")
-               ?? ExtractField(output, @"170\s+Unknown_Attribute.*?(\d+)\s*$") ?? "неизвестно"
-               ?? ExtractField(output, @"Reallocated_Sector_Ct.*?(\d+)\s*$")?? "неизвестно";
+    ?? (ExtractField(output, @"170\s+Unknown_Attribute.*?(\d+)\s*$") is string s170 && s170 != ""
+        ? (s170.Length <= 2 ? s170 : ExtractField(output, @"Reallocated_Sector_Ct.*?(\d+)\s*$"))
+    : ExtractField(output, @"Reallocated_Sector_Ct.*?(\d+)\s*$")
+    ?? "неизвестно");
         string Reallocated_Sector_Ct = ExtractField(output, @"Reallocated_Sector_Ct.*?(\d+)\s*$");
         string Reallocated_Event_Count = ExtractField(output, @"Reallocated_Event_Count.*?(\d+)\s*$") ?? "неизвестно";
         string Current_Pending_Sector = ExtractField(output, @"Current_Pending_Sector.*?(\d+)\s*$") ?? "неизвестно";
