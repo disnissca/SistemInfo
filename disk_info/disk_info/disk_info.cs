@@ -170,51 +170,8 @@ public class disk_info
     {
         string model = ExtractField(output, @"Device Model:\s+(.*)") ?? "неизвестно";
         string serial = ExtractField(output, @"Serial Number:\s+(.*)") ?? "неизвестно";
-
-        //// Универсальный износ
-        //string wear = ExtractField(output, @"SSD_Life_Left.*?(\d+)\s*$") ?? ExtractField(output, @"Media_Wearout_Indicator.*?(\d+)\s*$") 
-        //    ?? ExtractField(output, @"Percentage Used:\s+(\d+)\s*$") ?? ExtractField(output, @"Wear_Leveling_Count.*?(\d+)\s*$");
-
-        //// Попытка 1: SSD_Life_Left (Phison, Kingston, Patriot и т.д.)
-        //string wearRaw = ExtractField(output, @"SSD_Life_Left.*?(\d+)\s*$");
-        //if (!string.IsNullOrEmpty(wearRaw))
-        //{
-        //    wear = (100 - int.Parse(wearRaw)).ToString(); // 100 - VALUE = % износа
-        //}
-
-        //// Попытка 2: Media_Wearout_Indicator (Intel, Micron)
-        //if (wear == "неизвестно")
-        //{
-        //    var mwRaw = ExtractField(output, @"Media_Wearout_Indicator.*?(\d+)\s*$");
-        //    if (!string.IsNullOrEmpty(mwRaw))
-        //    {
-        //        int val = int.Parse(mwRaw);
-        //        // Определим направление — на глазок (чаще 100 = новый → 0 = изношен)
-        //        if (val >= 90) wear = (100 - val).ToString(); // тип Intel/Micron
-        //        else wear = val.ToString(); // тип Samsung и др.
-        //    }
-        //}
-
-        //// Попытка 3: NVMe Percentage Used
-        //if (wear == "неизвестно")
-        //{
-        //    var nvmeUsed = ExtractField(output, @"Percentage Used:\s+(\d+)\s*$");
-        //    if (!string.IsNullOrEmpty(nvmeUsed))
-        //    {
-        //        wear = nvmeUsed; // уже в % износа
-        //    }
-        //}
-
-        //// Попытка 4: Wear_Leveling_Count — если совсем ничего не найдено
-        //if (wear == "неизвестно")
-        //{
-        //    var wlc = ExtractField(output, @"Wear_Leveling_Count.*?(\d+)\s*$");
-        //    if (!string.IsNullOrEmpty(wlc))
-        //    {
-        //        wear = $"{wlc}"; // просто выводим как есть
-        //    }
-        //}
         string wear = ExtractField(output, @"SSD_Life_Left.*?(\d+)\s*$")
+               ?? ExtractField(output, @"170\s+Unknown_Attribute.*?(\d+)\s*$") ?? "неизвестно"
                ?? ExtractField(output, @"Reallocated_Sector_Ct.*?(\d+)\s*$")?? "неизвестно";
         string Reallocated_Sector_Ct = ExtractField(output, @"Reallocated_Sector_Ct.*?(\d+)\s*$");
         string Reallocated_Event_Count = ExtractField(output, @"Reallocated_Event_Count.*?(\d+)\s*$") ?? "неизвестно";
