@@ -9,6 +9,7 @@ namespace CPU_info
     {
         static void Main(string[] args)
         {
+        string versio = "1.0.1";
 
 
             if (args.Length == 0 || args[0].Equals("help", StringComparison.OrdinalIgnoreCase))
@@ -162,6 +163,8 @@ namespace CPU_info
                 computer.Close();
                 return;
             }
+            if (mode == "versio")
+                Console.WriteLine(versio);
 
             computer.Close();
         }
@@ -180,6 +183,7 @@ namespace CPU_info
             Console.WriteLine("ram SLOT0, {ATTRIBUTE}           - Вывод параметра по номеру SLOT");
             Console.WriteLine("disk                             - Детальная информация по всем физическим дискам");
             Console.WriteLine("disk DEVICE, {ATTRIBUTE}         - Вывод параметра по номеру DEVICE");
+            Console.WriteLine("versio                           - Версия");
 
         }
 
