@@ -205,7 +205,8 @@ public class disk_info
         string powerOnRaw = ExtractField(output, @"Power [Oo]n Hours:\s+([^\r\n]+)") ?? "неизвестно";
         string wear = ExtractField(output, @"Percentage Used:\s+(\d+)");
         if (model == "Viper M.2 VPN100")
-            wear = (100 - int.Parse(wear)).ToString();
+            //Меняет значение наоборот. 3 стало 97 и т.д.
+            wear = (100 - int.Parse(wear)).ToString(); 
 
         powerOnRaw = new string(powerOnRaw.Where(char.IsDigit).ToArray());
 
