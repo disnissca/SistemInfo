@@ -9,7 +9,7 @@ namespace CPU_info
     {
         static void Main(string[] args)
         {
-        string versio = "1.0.1";
+        string versio = "1.0.2";
 
 
             if (args.Length == 0 || args[0].Equals("help", StringComparison.OrdinalIgnoreCase))
