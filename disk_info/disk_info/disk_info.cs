@@ -204,6 +204,8 @@ public class disk_info
         string serial = ExtractField(output, @"Serial Number:\s+(.*)") ?? "неизвестно";
         string powerOnRaw = ExtractField(output, @"Power [Oo]n Hours:\s+([^\r\n]+)") ?? "неизвестно";
         string wear = ExtractField(output, @"Percentage Used:\s+(\d+)");
+        if (model == "Viper M.2 VPN100")
+            wear = (100 - int.Parse(wear)).ToString();
 
         powerOnRaw = new string(powerOnRaw.Where(char.IsDigit).ToArray());
 
