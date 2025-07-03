@@ -176,7 +176,7 @@ public class disk_info
         ? (isUnknownAttribute170Used = true, s170.Length <= 2 ? s170 : ExtractField(output, @"^170\s+Unknown_Attribute\s+\S+\s+(\d+)\s+\d+\s+\S+")).Item2  : ExtractField(output, @"Reallocated_Sector_Ct.*?(\d+)\s*$")) ?? "неизвестно";
         if (isUnknownAttribute170Used == false)
             wear = (100 - int.Parse(wear)).ToString();
-        else
+        if (isUnknownAttribute170Used == false && wear != "100")
             wear = wear.Substring(1);
         string Reallocated_Sector_Ct = ExtractField(output, @"Reallocated_Sector_Ct.*?(\d+)\s*$");
         string Reallocated_Event_Count = ExtractField(output, @"Reallocated_Event_Count.*?(\d+)\s*$") ?? "неизвестно";

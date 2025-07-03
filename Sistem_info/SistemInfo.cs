@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using LibreHardwareMonitor.Hardware;
-using SistemInfo;
-namespace CPU_info
+//using SistemInfo;
+using System.Reflection;
+namespace SistemInfo
 {
     class SistemInfo
     {
         static void Main(string[] args)
         {
-        string versio = "1.0.2";
-
+            var assembly = Assembly.GetExecutingAssembly();
+            Version versio = assembly.GetName().Version;
 
             if (args.Length == 0 || args[0].Equals("help", StringComparison.OrdinalIgnoreCase))
             {
@@ -183,7 +185,7 @@ namespace CPU_info
             Console.WriteLine("ram SLOT0, {ATTRIBUTE}           - Вывод параметра по номеру SLOT");
             Console.WriteLine("disk                             - Детальная информация по всем физическим дискам");
             Console.WriteLine("disk DEVICE, {ATTRIBUTE}         - Вывод параметра по номеру DEVICE");
-            Console.WriteLine("versio                           - Версия");
+            Console.WriteLine($"versio                           - Версия - ");
 
         }
 
